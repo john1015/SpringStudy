@@ -21,7 +21,6 @@ import lombok.Data;
 	 HIT                                                NUMBER(38)
  */
 @Data
-// 사용자 정의 데이터형 => 스프링에 등록대상이 아니다
 public class FoodVO {
 	private int fno;
 	private String name, type , address , time , parking , theme,phone;
