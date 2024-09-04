@@ -36,7 +36,7 @@ p{
 			<div class="row">
 				<div class="col-md-3">
 					<div class="thumbnail">
-						<a href="#"> 
+						<a href="detail.do?no=${vo.no }"> 
 						<img src="http://www.menupan.com${vo.poster }" 
 						title="${vo.address}&#10;${vo.type}&#10;${vo.theme}&#10; ${평점 :vo.score }&#10;${vo.phone}"
 							style="width: 230px; height: 150px;">
