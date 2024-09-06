@@ -42,4 +42,16 @@ public class RecipeDAO {
 	public RecipeVO recipeCookieInfoData(int no) {
 		return mapper.recipeCookieInfoData(no);
 	}
+	public List<RecipeVO> recipeFindData(Map map){
+		return mapper.recipeFindData(map);
+	}
+	public int recipeFindTotalPage(Map map) {
+		return mapper.recipeFindTotalPage(map);
+	}
+	public List<FoodVO> foodTop5Data(){
+		return mapper.foodTop5Data();
+	}
+	public List<RecipeVO> recipeTop5Data(){
+		return mapper.recipeTop5Data();
+	}
 }

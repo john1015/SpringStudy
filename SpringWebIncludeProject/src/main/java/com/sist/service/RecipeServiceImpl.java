@@ -11,6 +11,15 @@ import com.sist.vo.*;
  * 			      Controller <= Service <= Repository <= 
  * 																			
  */
+/*
+ *       1. mapper => SQL문장 작성
+ *       2. dao에서 구현
+ *       3. service에 등록 ~Service
+ *       4. service구현 ~ServiceImpl
+ *       => 유지보수 목적 => DAO를 추가하면 오류 => 오류 방지
+ *       => 결합성이 낮은 프로그램
+ *            ======= 다른 클래스에 영향을 없이 사용
+ */
 @Service
 public class RecipeServiceImpl implements RecipeService{
 	@Autowired
@@ -54,5 +63,25 @@ public class RecipeServiceImpl implements RecipeService{
 	@Override
 	public RecipeVO recipeCookieInfoData(int no) {
 		return dao.recipeCookieInfoData(no);
+	}
+
+	@Override
+	public List<RecipeVO> recipeFindData(Map map) {
+		return dao.recipeFindData(map);
+	}
+
+	@Override
+	public int recipeFindTotalPage(Map map) {
+		return dao.recipeFindTotalPage(map);
+	}
+
+	@Override
+	public List<FoodVO> foodTop5Data() {
+		return dao.foodTop5Data();
+	}
+
+	@Override
+	public List<RecipeVO> recipeTop5Data() {
+		return dao.recipeTop5Data();
 	}
 }
