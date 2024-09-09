@@ -5,11 +5,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 /*
- * 1. °´Ã¼ »ý¼º -> °ü¸®
- * 2. ¸â¹ö“Ù¼öÀÇ ÃÊ±âÈ­ ÈÄ¿¡ °´Ã¼ »ý¼º => °ü¸®
+ * 1. ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ -> ï¿½ï¿½ï¿½ï¿½
+ * 2. ï¿½ï¿½ï¿½ï¿½Ù¼ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½Ä¿ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ => ï¿½ï¿½ï¿½ï¿½
  * 	   = setXxx() => setter DI
- * 	   = »ý¼ºÀÚ => constructor DI
- *  <bean id="mem" class="com.sist.main.Member"> => ¿À·ù ¹ß»ý
+ * 	   = ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ => constructor DI
+ *  <bean id="mem" class="com.sist.main.Member"> => ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½
  *  class A{
  *  	private int a,b;
  *  }
@@ -31,10 +31,10 @@ public class Member {
 	}
 
 	public void print() {
-		System.out.println("È¸¿ø ¹øÈ£" : mno);
-		System.out.println("ÀÌ¸§" : name);
-		System.out.println("¼ºº°" : sex);
-		System.out.println("ÁÖ¼Ò" : address);
-		System.out.println("ÀüÈ­¹øÈ£" : phone);
+		System.out.println("È¸ï¿½ï¿½ ï¿½ï¿½È£ :"+  mno);
+		System.out.println("ï¿½Ì¸ï¿½:"  +name);
+		System.out.println("ï¿½ï¿½ï¿½ï¿½:" + sex);
+		System.out.println("ï¿½Ö¼ï¿½:" + address);
+		System.out.println("ï¿½ï¿½È­ï¿½ï¿½È£:" + phone);
 	}
 }
