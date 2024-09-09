@@ -2,6 +2,7 @@ package com.sist.web;
 
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,6 +45,7 @@ public class BoardController {
 		model.addAttribute("curpage", curpage);
 		model.addAttribute("totalpage", totalpage);
 		model.addAttribute("count", count);
+		model.addAttribute("type", "관리자가 삭제한 게시물 입니다");
 		model.addAttribute("today", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 		
 		model.addAttribute("main_jsp", "../board/list.jsp");
@@ -59,12 +61,95 @@ public class BoardController {
 		bService.boardInsert(vo);
 		return "redirect:../board/list.do";
 	}
+	/*
+	 * 매개변수 : 순서와 상관 없다
+	 * 				 사용자가 요청한 값
+	 * 					=> String / int / String[] / VO
+	 * 				 라이브러리 클래스 (내장 객체)
+	 * 					=> HttpServletRequest : Cookie 읽기
+	 * 					=> HttpServletResponse : Cookie저장 , 다운로드
+	 * 					=> HttpSession
+	 * 					=> 데이터 전송 : Model 
+	 * 					=> sendRedirect로 데이터 전송
+	 * 						 RedirectAttributes
+	 * 	                => 보안 : 보안 클래스
+	 * 리턴형 : String / void
+	 * 				|			| ajax / 다운로드 / 스케쥴러 => task 
+	 * 			  request를 전송 : forward => "경로명 / JSP명 "
+	 *           기존의 화면 이동 : sendRedirect => "redirect:~.do"
+	 *           => request를 전송하지 않는다
+	 *           ================ 화면 변경
+	 * 메소드명 : 개발자가 설정 => @GetMapping => URL주소 
+	 * 
+	 * => detail.do?no=10 => 모든 데이터는 String으로 받을 수 있다
+	 * 		===========
+	 * 			(String no) => Integer.parseInt(no)
+	 * 			(int no)
+	 * => 데이터가 많은 경우
+	 *       VO ********
+	 *       List ******* File멀티 업로드
+	 *       String[] = checkbox
+	 *       
+	 * => 404 => 파일이 없는 경우 : 경로명 , 파일 여부
+	 *       500 => 소스 오류 : SQL문장
+	 *       			 NULL 일때 String 메소드 이용
+	 *       400 => Bad Request => 매개변수의 데이터형이 다른 경우
+	 *       405 => GET = @GetMapping , POST => @PostMapping
+	 *       												<form> , ajax , axios.post
+	 *       403 => 접근 거부 : 권한부여 => security
+	 *       412 => UTF-8 => 한글 변환 코드가 틀린 경우
+	 *       		ex) UFT-8 ...
+	 * 
+	 */
 	@GetMapping("board/detail.do")
 	public String board_detail(int no , Model model) {
 		
 		// 데이터베이스 연동
+		ReplyBoardVO vo = bService.boardDetailData(no);
 		// 결과값 전송
+		model.addAttribute("vo", vo);
 		model.addAttribute("main_jsp", "../board/detail.jsp");
+		// request.setAttribute()
+		/*
+		 *  request / response 사용하면 안되는 이유
+		 *  ==============
+		 *  | 사용자 정보를 가지고 있다 => IP , 컴퓨터에 대한 정보가 노출이 가능
+		 *  | 스프링 5 => 보안
+		 *  					== request , response사용 빈도가 거의 없다
+		 *  						  Cookie
+		 *                     == XML을 사용하지 않는다 == 자바 설정 파일이 생성
+		 */
+		return "main/main"; // forward => request전송 => class화 Model
+	}
+	@GetMapping("board/update.do")
+	public String board_update(int no , Model model) {
+		
+		ReplyBoardVO vo = bService.boardUpdateData(no);
+		model.addAttribute("vo", vo);
+		
+		model.addAttribute("main_jsp", "../board/update.jsp");
+		return "main/main";
+	}
+	@GetMapping("board/reply.do")
+	public String board_reply(int no , Model model) {
+		
+		model.addAttribute("no", no);
+		
+		model.addAttribute("main_jsp", "../board/reply.jsp");
+		return "main/main";
+	}
+	@PostMapping("board/reply_ok.do")
+	public String board_reply_ok(int pno , ReplyBoardVO vo) {
+		
+		// 처리
+		bService.boardReplyInsert(pno, vo);
+		return "redirect:../board/list.do";
+	}
+	@GetMapping("board/delete.do")
+	public String board_delete(int no , Model model) {
+		
+		model.addAttribute("no", no);
+		model.addAttribute("main_jsp", "../board/delete.jsp");
 		return "main/main";
 	}
 }
