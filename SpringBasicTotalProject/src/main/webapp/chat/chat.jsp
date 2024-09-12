@@ -1,28 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <style type="text/css">
 .container {
-   margin-top : 50px
+	margin-top: 50px
 }
 
 .row {
-   margin: 0px auto;
-   width: 600px
+	margin: 0px auto;
+	width: 600px
 }
-#chatArea { 
-   height: 500px;
-   overflow: auto;
-   border: 1px solid black;
+
+#chatArea {
+	height: 500px;
+	overflow: auto;
+	border: 1px solid black;
 }
 </style>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
 <script type="text/javascript">
 let websocket;
 let name;
@@ -39,7 +42,7 @@ function connection(){
    websocket.onmessage=onMessage
 }
 function onOpen(event){
-   alert("서버 연결 완")
+   alert("서버 연결 완료")
 }
 function onClose(event) {
    alert("서버 연결 종료")   
@@ -86,32 +89,32 @@ $(function(){
 </script>
 </head>
 <body>
-<div class="container">
- <h1 class="text-center">실시간 접속자 채팅</h1>
-  <div class="row">
-   <table class="table">
-    <tr>
-     <td>
-      <input type=text id="name" size="20" class="input-sm">
-      <input type=button value="입장" id="inputBtn" class="btn btn-sm btn-primary">
-      <input type=button value="퇴장" id="outputBtn" class="btn btn-sm btn-primary">
-     </td>
-    </tr>
-    <tr>
-     <td>
-      <div id="chatArea">
-       <div id="recvMsg"></div>
-      </div>
-     </td>
-    </tr>
-    <tr>
-     <td>
-      <input type=text id="sendMsg" size=75 class="input-sm">
-      <input type=button value="전송" id="sendBtn" class="btn btn-sm btn-success">
-     </td>
-    </tr>
-   </table>
-  </div>
-</div>
+	<div class="container">
+		<h1 class="text-center">실시간 접속자 채팅</h1>
+		<div class="row">
+			<table class="table">
+				<tr>
+					<td>
+						<input type=text id="name" size="20" class="input-sm">
+						<input type=button value="입장" id="inputBtn" class="btn btn-sm btn-primary"> 
+						<input type=button value="퇴장" id="outputBtn" class="btn btn-sm btn-primary">
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<div id="chatArea">
+							<div id="recvMsg"></div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input type=text id="sendMsg" size=75 class="input-sm">
+						<input type=button value="전송" id="sendBtn" class="btn btn-sm btn-success">
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
 </body>
 </html>

@@ -21,11 +21,19 @@
 </head>
 <body>
 	<div class="container">
-		<div class="">
-			<a href="name_find.do" class="btn btn-xs btn-danger">이름 검색</a>
-			<a href="find.do" class="btn btn-xs btn-danger">조건 검색</a>
+		<div class="row">
+		<form method="post" action="find.do">
+			<select name="fd" class="input-sm">
+				<option value="all">전체</option>
+				<option value="ename">이름</option>
+				<option value="hiredate">입사년도</option>
+				<option value="job">직위</option>
+			</select>
+			<input type="text" name=ss size=20 class="input-sm">
+			<button class="btn-sm btn-success">검색</button>
+			</form>
 		</div>
-		<h3 class="text-center">사원 목록</h3>
+		<h3>검색 결과</h3>
 		<div class="row">
 			<table class="table">
 				<tr>

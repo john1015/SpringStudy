@@ -21,10 +21,7 @@
 </head>
 <body>
 	<div class="container">
-		<div class="">
-			<a href="name_find.do" class="btn btn-xs btn-danger">이름 검색</a>
-			<a href="find.do" class="btn btn-xs btn-danger">조건 검색</a>
-		</div>
+		
 		<h3 class="text-center">사원 목록</h3>
 		<div class="row">
 			<table class="table">
