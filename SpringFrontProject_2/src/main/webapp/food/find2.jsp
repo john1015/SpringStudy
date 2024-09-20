@@ -33,8 +33,10 @@ p{
 	 --%>
 	 <div class="container">
 	 	<div class="row">
-	 		<input type="text" size=20 class="input-sm" ref="address" v-model="address">
-	 		<input type="button" value="검색" class="btn-sm btn-success">
+	 		<input type="text" size=20 class="input-sm" ref="address" v-model="address"
+	 			@keydown.enter="find()"
+	 		>
+	 		<input type="button" value="검색" class="btn-sm btn-success" @click="find()">
 	 	</div>
 	 	<div style="height:10px;"></div>
 	 	<div class="row">
@@ -50,6 +52,16 @@ p{
 				    </div>
 				 </div>
 	 	</div>
+	 	<div style="height:10px;"></div>
+		<div class="row">
+			<div class="text-center">
+				<ul class="pagination">
+					<li v-if="startPage>1"><a class="link" @click="prev()">&lt;</a></li>
+					<li v-for="i in range(startPage,endPage)" :class="i===curpage?'active':''"><a class="link" @click="pageChange(i)">{{i}}</a></li>
+					<li v-if="endPage<totalpage"><a class="link" @click="next()">&gt;</a></li>
+				</ul>
+			</div>
+		</div>
 	 </div>
 	 <script>
 	 	let findApp=Vue.createApp({
@@ -67,6 +79,36 @@ p{
 	 			this.dataRecv()
 	 		} ,
 	 		methods:{
+	 			range(start,end){
+					let arr = []
+					let len=end-start
+					for(let i=0; i<=len; i++){
+						arr[i]=start
+						start++
+					}
+					return arr
+				},
+	 			prev(){
+					this.curpage=startPage-1	 				
+	 				this.dataRecv()
+	 			},
+	 			next(){
+	 				this.curpage=endPage+1
+	 				this.dataRecv()
+	 			},
+	 			pageChange(page){
+	 				this.curpage=page
+	 				this.dataRecv()
+	 			},
+	 			find(){
+	 				if(this.address===""){
+	 					alert("검색어 입력")
+	 					this.$refs.address.focus()
+	 					return
+	 				}
+	 				this.curpage=1
+	 				this.dataRecv()
+	 			},
 	 			dataRecv(){
 	 				axios.get("http://localhost:8080/web/food/find_vue.do",{
 	 					params:{
