@@ -94,4 +94,13 @@ public class FoodRestController {
 		
 		return json;
 	}
+	@GetMapping(value="food/type_vue.do",produces="text/plain;charset=UTF-8")
+	public String food_type(String type) throws Exception{
+		String json="";
+		List<FoodVO> list= fService.foodTypeListData(type);
+		ObjectMapper mapper = new ObjectMapper();
+		json=mapper.writeValueAsString(list);
+		
+		return json;
+	}
 }
