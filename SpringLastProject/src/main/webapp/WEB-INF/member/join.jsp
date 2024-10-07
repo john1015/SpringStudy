@@ -14,7 +14,7 @@
                 <div class="col-12">
                     <div class="bradcumb-title text-center">
                         <h2>회원가입</h2>
-                    </div>
+                    </div> 
                 </div>
             </div>
         </div>
