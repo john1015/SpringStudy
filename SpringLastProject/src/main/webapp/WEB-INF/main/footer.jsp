@@ -78,7 +78,7 @@
                 <div class="col-12">
                     <!-- Copywrite Text -->
                     <div class="copy_right_text text-center">
-                        <p>제작 : 쌍용강북교육센터<i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">심은우</a></p>
+                        <p>제작 : 쌍용강북교육센터<i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">D강의실</a></p>
                     </div>
                 </div>
             </div>
