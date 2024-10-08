@@ -1,11 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+.image{
+	float: left;
+	padding : 0.5px;
+}
+</style>
 </head>
 <body>
 <section id="top">
@@ -29,35 +34,34 @@
                <div class="col-md-9">
                   <!-- 반복 -->
                   
-                  <div class="feature-post small-blog" v-for="vo in hotel_list">
-                     <div class="col-md-5">
+                  <div class="feature-post small-blog" v-for="vo in hotel_list" :key="vo.hno">
+                     <div class="col-md-4">
                         <div class="feature-img">
                            <img :src="vo.poster" class="img-responsive" alt="#" />
                         </div>
                      </div>
-                     <div class="col-md-7">
+                     <div class="col-md-8">
                         <div class="feature-cont">
                            <div class="post-info">
                               <span>
                                  <h4>{{vo.name}}&nbsp;<a href="#" style="color:orange">{{vo.score}}</a></h4>
                                  <h5>{{vo.address}}</h5>
                               </span>
-                              <img :src="vo.poster" alt="#" />
                            </div>
+                           </div>
+                            <div class="image" v-for="hvo in vo.imagesList" :key="hvo"  >
+                                <img :src="hvo" alt="" style="width:100px;height:100px; ">
+                            </div>
                            <div class="post-heading">
-                             <!--  <h3>We denounce with righteous indignation and dislike men who are so beguiled</h3>
-                              <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores 
-							   et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est 
-							   laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.</p> -->
                               <div class="full">
-                                 <a class="btn" href="#">Read More</a>
+                                 <a class="btn" href="#">더보기</a>
                               </div>
                            </div>
-                        </div>
+                        
                      </div>
                   </div>
                   
-                 <!-- <div class="col-12">
+                 <div class="col-12">
                     <div class="pagination-area d-sm-flex mt-15">
                         <nav aria-label="#">
                             <ul class="pagination">
@@ -76,7 +80,7 @@
                             <p>{{curpage}} / {{totalpage}}</p>
                         </div>
                     </div>
-                </div> -->
+                </div>
                   <!-- 반복 끝 -->
                </div>
                <div class="col-md-3">
@@ -119,6 +123,7 @@
       				totalpage:0,
       				startPage:0,
       				endPage:0
+      				
       			}
       		},
       		mounted(){
