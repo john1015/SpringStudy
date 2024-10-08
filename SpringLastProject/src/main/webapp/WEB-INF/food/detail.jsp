@@ -170,14 +170,14 @@
 	                                                <h5>{{vo.name}}</h5>
 	                                                <p>{{vo.msg}}</p>
 	                                                <button v-if="sessionId===vo.id" class="btn-xs btn-warning" style="margin-left:2px;">Update</button>
-	                                                <button v-if="sessionId===vo.id" class="btn-xs btn-danger" style="margin-left:2px;">Delete</button>
+	                                                <button v-if="sessionId===vo.id" class="btn-xs btn-danger" style="margin-left:2px;" @click="replyDelete(vo.cno)">Delete</button>
 	                                                <button class="active insert"  v-if="sessionId!=''" class="btn-xs btn-success" style="margin-left:2px;"  @click="replyForm(vo.cno)" :id="'i'+vo.cno">Reply</button>
 	                                                <button  v-if="sessionId!==vo.id && sessionId!==''" class="btn-xs btn-primary">Like</button>
 	                                                
 					                                    <table class="table ins" style="display:none" :id="'in'+vo.cno">
 					                                    	<tr>
 					                                    		<td>
-					                                    			<textarea rows="4" cols="59" style="float:left" ref="msg" v-model="msg"></textarea>
+					                                    			<textarea rows="4" cols="59" style="float:left" :id="'msg'+vo.cno"></textarea>
 					                                    			<input type="button" value="댓글"
 					                                    			  style="float:left;background-color:blue;color:white;width:80px;height:98px"
 					                                    			  @click="replyReplyInsert(vo.cno)"
@@ -263,6 +263,51 @@
     			this.dataRecv()
     		},
     		methods:{
+    			replyDelete(cno){
+    				axios.get('../comment/delete_vue.do',{
+    					params:{
+    						cno:cno,
+    						rno:this.rno,
+    						type:this.type
+    					}
+    				}).then(response=>{
+    					console.log(response.data)
+    					this.reply_list=response.data.list
+    					this.curpage=response.data.curpage
+    					this.totalpage=response.data.totalpage
+    					this.startPage=response.data.startPage
+    					this.endpage=response.data.endPage
+    				}).catch(error=>{
+    					console.log(error.response)
+    				})
+    			},
+    			replyReplyInsert(cno){
+    				let msg=$('#msg'+cno).val()
+    				if(msg.trim()===""){
+    					$('#msg'+cno).focus
+    					return
+    				}
+    				axios.post('../comment/reply_insert_vue.do',null,{
+    					params:{
+    						rno:this.rno,
+    						type:this.type,
+    						msg:msg,
+    						cno:cno
+    					}
+    				}).then(response=>{
+    					console.log(response.data)
+    					this.reply_list=response.data.list
+    					this.curpage=response.data.curpage
+    					this.totalpage=response.data.totalpage
+    					this.startPage=response.data.startPage
+    					this.endpage=response.data.endPage
+    					$('#msg'+cno).val('')
+    					$('#in'+cno).hide()
+    					$('#i'+cno).text("Reply")
+    				}).catch(error=>{
+    					console.log(error.response)
+    				})
+    			},
     			replyForm(cno){
     				$('.ins').hide()
     				$('.insert').text('Reply')
@@ -294,6 +339,7 @@
     					this.totalpage=response.data.totalpage
     					this.startPage=response.data.startPage
     					this.endpage=response.data.endPage
+    					
     				}).catch(error=>{
     					console.log(error.response)
     				})
