@@ -8,6 +8,11 @@
 <title>Insert title here</title>
 <script src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=7afa4d414b029c6c74c3e45d6d3e8214&libraries=services"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<style type="text/css">
+.nav-link{
+	cursor:pointer;
+}
+</style>
 </head>
 <body>
   <!-- ****** Breadcumb Area Start ****** -->
@@ -164,12 +169,30 @@
 	                                                <span class="comment-date text-muted">{{vo.dbday}}</span>
 	                                                <h5>{{vo.name}}</h5>
 	                                                <p>{{vo.msg}}</p>
-	                                                <a href="#" v-if="sessionId===vo.id">Update</a>
-	                                                <a href="#" v-if="sessionId===vo.id">Delete</a>
-	                                                <a class="active" href="#" v-if="sessionId!=''">Reply</a>
-	                                                <a href="#" v-if="sessionId!=vo.id">Like</a>
+	                                                <button v-if="sessionId===vo.id" class="btn-xs btn-warning" style="margin-left:2px;">Update</button>
+	                                                <button v-if="sessionId===vo.id" class="btn-xs btn-danger" style="margin-left:2px;">Delete</button>
+	                                                <button class="active insert"  v-if="sessionId!=''" class="btn-xs btn-success" style="margin-left:2px;"  @click="replyForm(vo.cno)" :id="'i'+vo.cno">Reply</button>
+	                                                <button  v-if="sessionId!==vo.id && sessionId!==''" class="btn-xs btn-primary">Like</button>
+	                                                
+					                                    <table class="table ins" style="display:none" :id="'in'+vo.cno">
+					                                    	<tr>
+					                                    		<td>
+					                                    			<textarea rows="4" cols="59" style="float:left" ref="msg" v-model="msg"></textarea>
+					                                    			<input type="button" value="댓글"
+					                                    			  style="float:left;background-color:blue;color:white;width:80px;height:98px"
+					                                    			  @click="replyReplyInsert(vo.cno)"
+					                                    			  >
+					                                    			  
+					                                    		</td>
+					                                    	</tr>
+					                                    </table>
 	                                            </div>
-	                                        </div>
+	                                            
+	                                            </div>
+	                                            
+	                                             
+	                                            
+	                                        
 	                                        <ol class="children" v-if="vo.group_tab===1">
 	                                            <li class="single_comment_area">
 	                                                <div class="comment-wrapper d-flex">
@@ -184,7 +207,7 @@
 	                                                        <p>{{vo.msg}}</p>
 			                                                <a href="#" v-if="sessionId===vo.id">Update</a>
 			                                                <a href="#" v-if="sessionId===vo.id">Delete</a>
-			                                                <a href="#" v-if="sessionId!=vo.id">Like</a>
+			                                                <a href="#" v-if="sessionId!==vo.id && sessionId!==''">Like</a>
 	                                                    </div>
 	                                                </div>
 	                                            </li>
@@ -203,7 +226,10 @@
 		                                    		<td>
 		                                    			<textarea rows="4" cols="70" style="float:left" ref="msg" v-model="msg"></textarea>
 		                                    			<input type="button" value="댓글"
-		                                    			  style="float:left;background-color:blue;color:white;width:80px;height:98px">
+		                                    			  style="float:left;background-color:blue;color:white;width:80px;height:98px"
+		                                    			  @click="replyInsert()"
+		                                    			  >
+		                                    			  
 		                                    		</td>
 		                                    	</tr>
 		                                    </table>
@@ -228,13 +254,50 @@
     				endPage:0,
     				startPage:0,
     				type:1,
-    				sessionId:'${sessionId}'
+    				sessionId:'${sessionId}',
+    				msg:'',
+    				isReply:false
     			}
     		},
     		mounted(){
     			this.dataRecv()
     		},
     		methods:{
+    			replyForm(cno){
+    				$('.ins').hide()
+    				$('.insert').text('Reply')
+    				if(this.isReply===false){
+    					this.isReply=true
+    					$('#in'+cno).show()
+    					$('#i'+cno).text("Cancel")
+    				} else {
+    					this.isReply=false
+    					$('#in'+cno).hide()
+    					$('#i'+cno).text("Reply")
+    				}
+    			},
+    			replyInsert(){
+    				if(this.msg===''){
+    					this.$refs.msg.focus()
+    					return
+    				}
+    				axios.post('../comment/insert_vue.do',null,{
+    					params:{
+    						rno:this.rno,
+    						type:this.type,
+    						msg:this.msg
+    					}
+    				}).then(response=>{
+    					console.log(response.data)
+    					this.reply_list=response.data.list
+    					this.curpage=response.data.curpage
+    					this.totalpage=response.data.totalpage
+    					this.startPage=response.data.startPage
+    					this.endpage=response.data.endPage
+    				}).catch(error=>{
+    					console.log(error.response)
+    				})
+    			},
     			dataRecv(){
     				axios.get('../comment/list_vue.do',{
     					params:{
@@ -249,6 +312,7 @@
     					this.totalpage=response.data.totalpage
     					this.startPage=response.data.startPage
     					this.endpage=response.data.endPage
+    					this.msg=''
     					
     				}).catch(error=>{
     					console.log(error.response)

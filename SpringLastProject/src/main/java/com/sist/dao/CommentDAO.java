@@ -18,6 +18,9 @@ public class CommentDAO {
 		return mapper.commentListData(map);
 	}
 	public int commentTotalpage(Map map) {
-		return mapper.commentTotalpage(map);
+		return mapper.commentTotalPage(map);
+	}
+	public void commentInsert(CommentVO vo) {
+		mapper.commentInsert(vo);
 	}
 }
