@@ -13,9 +13,9 @@ public interface FoodMapper {
 		 +"WHERE rownum<=5")
   public List<FoodVO> foodHitTop5();
   // 목록 ***
-  @Select("SELECT fno,name,poster,score,type,hit,num "
-		 +"FROM (SELECT fno,name,poster,score,type,hit,rownum as num "
-		 +"FROM (SELECT fno,name,poster,score,type,hit "
+  @Select("SELECT fno,name,poster,score,type,hit,replycount,num "
+		 +"FROM (SELECT fno,name,poster,score,type,hit,replycount,rownum as num "
+		 +"FROM (SELECT fno,name,poster,score,type,hit,replycount "
 		 +"FROM project_food_house ORDER BY fno ASC)) "
 		 +"WHERE num BETWEEN #{start} AND #{end}")
   public List<FoodVO> foodListData(@Param("start") int start,@Param("end") int end);
@@ -31,15 +31,15 @@ public interface FoodMapper {
 		 +"WHERE fno=#{fno}")
   public FoodVO foodDetailData(int fno);
   // 예약 ***
-  @Select("SELECT fno , name , poster "
-  		+ "    FROM project_food_house "
-  		+ "    WHERE type LIKE '%'||#{type}||'%' ")
+  @Select("SELECT fno,name,poster "
+		 +"FROM project_food_house "
+		 +"WHERE type LIKE '%'||#{type}||'%'")
   public List<FoodVO> foodTypeListData(String type);
   // 추천 => 네이버 카페 
   // 검색
-  @Select("SELECT fno,name,poster,score,type,hit,num "
-			 +"FROM (SELECT fno,name,poster,score,type,hit,rownum as num "
-			 +"FROM (SELECT fno,name,poster,score,type,hit "
+  @Select("SELECT fno,name,poster,score,type,hit,replycount,num "
+			 +"FROM (SELECT fno,name,poster,score,type,hit,replycount,rownum as num "
+			 +"FROM (SELECT fno,name,poster,score,type,hit,replycount "
 			 +"FROM project_food_house "
 			 +"WHERE address LIKE '%'||#{fd}||'%' "
 			 +"ORDER BY fno ASC)) "
@@ -49,5 +49,4 @@ public interface FoodMapper {
   @Select("SELECT CEIL(COUNT(*)/12.0) FROM project_food_house "
 		 +"WHERE address LIKE '%'||#{fd}||'%'")
   public int foodFindTotalPage(Map map);
-  
 }

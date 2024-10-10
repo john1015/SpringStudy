@@ -72,4 +72,6 @@ public class FoodServiceImpl implements FoodService {
 		// TODO Auto-generated method stub
 		return fDao.foodTypeListData(type);
 	}
+
+	
 }

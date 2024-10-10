@@ -1,5 +1,8 @@
 package com.sist.service;
 import java.util.*;
+
+import org.apache.ibatis.annotations.Update;
+
 import com.sist.vo.*;
 import com.sist.mapper.*;
 
