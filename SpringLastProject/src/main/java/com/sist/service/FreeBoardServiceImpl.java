@@ -27,6 +27,30 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 		// TODO Auto-generated method stub
 		fDao.freeboardInsert(vo);
 	}
-	
+
+	@Override
+	public FreeBoardVO freeboardDetailData(int no) {
+		// TODO Auto-generated method stub
+		return fDao.freeboardDetailData(no);
+	}
+
+	@Override
+	public void freeboardDelete(int no) {
+		// TODO Auto-generated method stub
+		fDao.freeboardDelete(no);
+	}
+	/*
+	 *    JSP => .do
+	 *      |
+	 *    Controller
+	 *      |
+	 *    Mapper
+	 *      |
+	 *    DAO
+	 *      |
+	 *    Service
+	 *      |
+	 *    ServiceImpl
+	 */
 	
 }

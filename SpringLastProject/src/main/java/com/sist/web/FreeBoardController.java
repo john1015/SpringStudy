@@ -29,4 +29,11 @@ public class FreeBoardController {
 		model.addAttribute("sessionId", sessionId);
 		return "freeboard/detail";
 	}
+	@GetMapping("freeboard/update.do")
+	public String freeboard_update(int no,Model model) {
+		model.addAttribute("no", no);
+		
+		return "freeboard/update";
+		
+	}
 }

@@ -69,4 +69,28 @@ public class FreeBoardRestController {
 		}
 		return result;
 	}
+	// 상세보기
+	@GetMapping(value="freeboard/detail_vue.do",produces="text/plain;charset=UTF-8")
+	public String freeboard_detail(int no) throws Exception{
+		// 조회수 증가
+		// 데이터 전송
+		FreeBoardVO vo = fService.freeboardDetailData(no);
+		// JSON 변경
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(vo);
+		// 전송
+		return json;
+	}
+	@GetMapping(value="freeboard/delete_vue.do",produces="text/plain;charset=UTF-8")
+	public String freeboard_delete(int no) throws Exception{
+		String result="";
+		try {
+			fService.freeboardDelete(no);
+			result="yes";
+		} catch (Exception ex) {
+			result=ex.getMessage();
+		}
+			
+		return result;
+	}
 }
