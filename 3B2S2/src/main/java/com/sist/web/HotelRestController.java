@@ -23,20 +23,12 @@ public class HotelRestController {
 		List<HotelVO> list=hService.hotelListData(start, end);
 		int totalpage=hService.hotelTotalPage();
 		
-		System.out.println("h");
 		final int BLOCK=10;
 		int startPage=((page-1)/BLOCK*BLOCK)+1;
 		int endPage=((page-1)/BLOCK*BLOCK)+BLOCK;
 		if(endPage>totalpage)
 			endPage=totalpage;
 		
-
-		/*
-		 * for (HotelVO vo : list) { // images 필드를 쉼표로 구분하여 배열로 나누고, 리스트로 변환하여 설정 if
-		 * (vo.getImages() != null && !vo.getImages().isEmpty()) { String[] imagesArray
-		 * = vo.getImages().split(","); // 쉼표로 구분된 이미지 URL 분리
-		 * vo.setImagesList(Arrays.asList(imagesArray)); // 분리한 결과를 새로운 리스트 필드로 설정 } }
-		 */
 		
 		// 데이터를 모아서 => JSON으로 만들고 => VueJS로 전송 (React/React-Query/Redux/ThymeLeaf)
 		// JSON : Map 형식 => {키:값}
@@ -50,6 +42,14 @@ public class HotelRestController {
 		
 		ObjectMapper mapper=new ObjectMapper();
 		String json=mapper.writeValueAsString(map);
+		
+		return json;
+	}
+	@GetMapping(value="hotel/detail_vue.do",produces="text/plain;charset=UTF-8")
+	public String hotel_detail(int hno) throws Exception {
+		HotelVO vo = hService.hotelDetailData(hno);
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(vo);
 		
 		return json;
 	}

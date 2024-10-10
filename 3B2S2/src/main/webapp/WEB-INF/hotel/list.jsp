@@ -6,6 +6,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
+.inner-page-banner{
+	width:10px;
+}
 .image{
 	float: left;
 	padding : 0.5px;
@@ -28,6 +31,7 @@
             </div>
          </div>
       </section>
+      
 	<section id="contant" class="contant main-heading team" >
          <div class="row">
             <div class="container">
@@ -54,10 +58,9 @@
                             </div>
                            <div class="post-heading">
                               <div class="full">
-                                 <a class="btn" href="#">더보기</a>
+                                 <a class="btn" :href="'../hotel/detail_before.do?hno='+vo.hno">더보기</a>
                               </div>
                            </div>
-                        
                      </div>
                   </div>
                   

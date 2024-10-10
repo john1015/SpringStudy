@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.sist.vo.HotelVO;
 
@@ -18,4 +19,13 @@ public interface HotelMapper {
 	
 	@Select("SELECT CEIL(COUNT(*)/6) FROM hotel ")
 	public int hotelTotalPage();
+	@Select("SELECT hno,name,price,address,checkin,checkout,location,poster,images,rdays,jjimcount,likecount,hit,score "
+			+ "  FROM hotel "
+			+ "  WHERE hno=#{hno}")
+	public HotelVO hotelDetailData(int hno);
+	
+	@Update("UPDATE hotel SET "
+			+ "   hit = hit+1 "
+			+ "	WHERE hno=#{hno}")
+	public void hotelHitIncrement(int hno);
 }

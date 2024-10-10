@@ -25,5 +25,11 @@ public class HotelServiceImpl implements HotelService{
 		return hDao.hotelTotalPage();
 	}
 
+	@Override
+	public HotelVO hotelDetailData(int hno) {
+		// TODO Auto-generated method stub
+		return hDao.hotelDetailData(hno);
+	}
+
 
 }

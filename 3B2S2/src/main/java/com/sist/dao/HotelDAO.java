@@ -2,6 +2,7 @@ package com.sist.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -17,6 +18,10 @@ public class HotelDAO {
 	}
 	public int hotelTotalPage() {
 		return mapper.hotelTotalPage();
+	}
+	public HotelVO hotelDetailData(int hno) {
+		mapper.hotelHitIncrement(hno);
+		return mapper.hotelDetailData(hno);
 	}
 	
 }
