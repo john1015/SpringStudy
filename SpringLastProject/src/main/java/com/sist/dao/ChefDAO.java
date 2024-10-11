@@ -1,5 +1,6 @@
 package com.sist.dao;
 
+import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import java.util.*;
@@ -12,5 +13,12 @@ public class ChefDAO {
 	private ChefMapper mapper;
 	public ChefVO chefToday() {
 		return mapper.chefToday();
+	}
+	
+	public List<ChefVO> chefListData(Map map){
+		return mapper.chefListData(map);
+	}
+	public int chefTotalPage() {
+		return mapper.chefTotalPage();
 	}
 }

@@ -43,4 +43,9 @@ public interface RecipeMapper {
    		+ "    WHERE no=#{no}")
    public RecipeDetailVO recipeDetailData(int no);
    
+   
+   @Select("SELECT no,poster,title,rownum "
+   		+ "	 FROM recipe "
+   		+ "  	 WHERE chef=#{chef} AND rownum <=20")
+   public List<RecipeVO> recipeMakeData(String chef);
 }
