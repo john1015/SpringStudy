@@ -99,7 +99,6 @@ import com.sist.vo.RecipeVO;
 import java.util.*;
 import com.sist.vo.*;
 @Controller
-@RequestMapping("main/")
 public class MainController {
 	// 필요한 클래스 => 스프링에서 가지고 온다 (객체 주소)
 	@Autowired
@@ -107,7 +106,7 @@ public class MainController {
 	@Autowired
 	private FoodService fService;
 	// 사용자 요청에 따라 => 처리
-	@GetMapping("main.do")
+	@GetMapping("main/main.do")
 	public String main_main(Model model) {
 		RecipeVO rvo = rService.recipeMaxHitData();
 		List<RecipeVO> rList = rService.recipeHitTop8();
@@ -119,5 +118,10 @@ public class MainController {
 		model.addAttribute("rList", rList);
 		model.addAttribute("fList", fList);
 		return "main";
+	}
+	@GetMapping("chat/chat.do")
+	public String chat_chat() {
+		
+		return "site/chat/chat";
 	}
 }
