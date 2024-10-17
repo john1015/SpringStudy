@@ -7,6 +7,20 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="http://dapi.kakao.com/v2/maps/sdk.js?appkey=7afa4d414b029c6c74c3e45d6d3e8214&libraries=services"></script>
+<style type="text/css">
+h2{
+	font-size: ;
+	font:bolder;
+}
+li{
+	float:left;
+}
+.btnloc{
+	float:right;
+	padding:15px;
+	margin:2px;
+}
+</style>
 </head>
 <body>
    <section id="top">
@@ -24,7 +38,7 @@
             </div>
          </div>
       </section>
-      <section id="contant" class="contant main-heading team">
+      <section id="contant hoteldetail" class="contant main-heading team">
          <div class="row">
             <div class="container">
                <div class="contact">
@@ -32,63 +46,58 @@
                   
                      <div class="contact-info">
                         <div class="kode-section-title">
-                           <h3>${vo.name }</h3>
+                           	<span style="padding:15px;color:red; font-size: xx-large;font:bolder;">${vo.name }</span>
+                           	<span style="color:orange; font-size: x-large;">${vo.score }</span>
+                           	<span style="color:black; float:right;font:bolder; font-size: x-large;">${price }원</span>
                         </div>
                         <div class="kode-forminfo">
-                        <div class="col-md-6">
-	                        <img  src="${vo.poster }" style="width:490px;height:490px;">
-                        </div>
-                        <div class="col-md-6">
+	                        <div class="col-md-6">
+		                        <img  src="${vo.poster }" style="width:490px;height:490px;">
+	                        </div>
+	                        <div class="col-md-6">
+		                        <c:forEach var="images" items="${vo.imagesList}" varStatus="hvo">
+		                        	<div class="col-md-6">
+		                        	<div class="col-md-6" style="margin:.5px;">
+		                        	
+									    <img src="${images}" style="width:244px;height:244px;"/>
+		                        	</div>
+		                        	</div>
+								</c:forEach>
+	                        </div>
                         
-	                        <c:forEach var="images" items="${vo.imagesList}" varStatus="hvo">
-	                        	<div class="col-md-6">
-	                        	<div class="col-md-6" style="margin:.5px;">
-	                        	
-								    <img src="${images}" style="width:244px;height:244px;"/>
-	                        	</div>
-	                        	</div>
-							</c:forEach>
+                        	<div width="20px"></div>
+	                           <ul class="kode-form-list detaildata" style="padding:15px;">
+	                              <li>
+	                                 <p><strong>■&nbsp;주소 : ${vo.address }</strong></p>
+	                              </li>
+	                              <li>
+	                                 <p><strong>■&nbsp;기본 정보</strong> </p>
+	                              </li>
+	                              <li>
+	                                 <p><strong>1.&nbsp;체크인(Check-in):&nbsp;/&nbsp;${vo.checkin }&nbsp;&nbsp;체크아웃(Check-out):&nbsp;&nbsp;${vo.checkout }</p>
+	                                 <p><strong>2.&nbsp;와이파이 무료 이용</strong> </p>
+	                                 <p><strong>3.&nbsp;애완동물 동반 불가능</strong> </p>
+	                                 <p><strong>4.&nbsp;차/커피 메이커</strong> </p>
+	                              </li>
+	                              <li>
+	                                 <p><strong>■&nbsp;편의시설</strong> </p>
+	                              </li>
+	                              <li>
+	                                 <p> <strong>1.&nbsp;피트니스센터</strong></p>
+	                                 <p> <strong>2.&nbsp;무료주차</strong></p>
+	                                 <p> <strong>3.&nbsp;비즈니스 센터</strong></p>
+	                              </li>
+	                           </ul>
                         </div>
-                           <ul class="kode-form-list">
-                              <li>
-                                 <i class="fa fa-home"></i> 
-                                 <p><strong>Address:</strong> 805 consectetur adipiscing elit, sed do eiusmod tempor</p>
-                              </li>
-                              <li>
-                                 <i class="fa fa-phone"></i> 
-                                 <p><strong>Phone:</strong>  123 456 7890</p>
-                              </li>
-                              <li>
-                                 <i class="fa fa-envelope-o"></i> 
-                                 <p><strong>Email:</strong> Info@sportyleague.com</p>
-                              </li>
-                           </ul>
+                        <div class="btnloc">
+                              <button class="btn btn-sm btn-primary">좋아요</button>
+                              <button class="btn btn-sm btn-primary">찜하기</button>
+                              <a class="btn" href="../hotel/reserve.do?hno=${hno }">예약하기</a>
                         </div>
-                  
-                  
-                        <form method="post" class="comments-form" id="contactform">
-                           <ul>
-                              <li><input type="text" id="name" name="name" class="required" placeholder="Name *"></li>
-                              <li><input type="text" id="email" name="email" class="required email" placeholder="Email *"></li>
-                              <li><input type="text" name="address" id="address" placeholder="Address:"></li>
-                              <li><textarea name="message" id="message" placeholder="Add your message"></textarea></li>
-                              <li>
-                              <button class="btn btn-sm btn-primary">zz</button>
-                              <button class="btn btn-sm btn-primary">zz</button>
-                              <button class="btn btn-sm btn-primary">zz</button>
-                              </li>
-                           </ul>
-                           <div class="hidden-me" id="contact_form_responce">
-                              <p></p>
-                           </div>
-                        </form>
-                     </div>
-                  
                      <table class="table">
-                        
                         <tr>
                              <td>
-                                <div id="map" style="width:100%;height:350px"></div>
+                                <div id="map" style="width:100%;height:235px"></div>
                              </td>
                           </tr>
                      </table>
@@ -135,7 +144,7 @@
                </div>
             </div>
          </div>
+         </div>
       </section>
-   
 </body>
 </html>

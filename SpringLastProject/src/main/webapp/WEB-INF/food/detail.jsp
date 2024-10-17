@@ -103,9 +103,10 @@
                                  <c:if test="${sessionScope.userId!=null }">
                                   <a href="#" class="btn btn-xs btn-danger">좋아요</a>
                                   <a href="#" class="btn btn-xs btn-success">찜하기</a>
-                                  <a href="#" class="btn btn-xs btn-info">예약</a>
+                                  <a href="../reserve/reserve_main.do" class="btn btn-xs btn-info">예약</a>
                                  </c:if>
                                   <a href="../food/list.do" class="btn btn-xs btn-warning">목록</a>
+                                  <a href="http://127.0.0.1:8000/web/food/?no=1" class="btn btn-xs btn-warning">실시간 교통사항</a>
                                 </td>
                               </tr>
                               <tr>
@@ -163,7 +164,7 @@
                                         <div class="comment-wrapper d-flex" v-if="vo.group_tab===0">
                                             <!-- Comment Meta -->
                                             <div class="comment-author">
-                                                <img :src="vo.sex==='남자'?'../img/icon/man.png':'../img/icon/woman.jpg'" alt="">
+                                                <img :src="vo.sex==='남자'?'../img/icon/man.png':'../img/icon/woman.png'" alt="">
                                             </div>
                                             <!-- Comment Content -->
                                             <div class="comment-content">
@@ -204,7 +205,7 @@
                                                 <div class="comment-wrapper d-flex">
                                                     <!-- Comment Meta -->
                                                     <div class="comment-author">
-                                                        <img :src="vo.sex==='남자'?'../img/icon/man.png':'../img/icon/woman.jpg'" alt="">
+                                                        <img :src="vo.sex==='남자'?'../img/icon/man.png':'../img/icon/woman.png'" alt="">
                                                     </div>
                                                     <!-- Comment Content -->
                                                     <div class="comment-content">

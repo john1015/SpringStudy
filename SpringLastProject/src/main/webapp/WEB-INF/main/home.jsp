@@ -16,7 +16,7 @@
                     <div class="single_catagory wow fadeInUp" data-wow-delay=".3s">
                         <img src="../img/catagory-img/1.jpg" alt="">
                         <div class="catagory-title">
-                            <a href="#">
+                            <a href="../food/list.do">
                                 <h5>맛집</h5>
                             </a>
                         </div>
@@ -26,7 +26,7 @@
                     <div class="single_catagory wow fadeInUp" data-wow-delay=".6s">
                         <img src="../img/catagory-img/2.jpg" alt="">
                         <div class="catagory-title">
-                            <a href="#">
+                            <a href="../recipe/list.do">
                                 <h5>레시피</h5>
                             </a>
                         </div>
@@ -217,7 +217,7 @@
                             <!-- Single Popular Post -->
                             <c:forEach var="vo" items="${fList }">
                             <div class="single-populer-post d-flex">
-                                <img src="http://www.menupan.com${vo.poster }" alt="">
+                                <img src="http://www.menupan.com${vo.poster }" style="width: 200px;height: 120px">
                                 <div class="post-content">
                                     <a href="#">
                                         <h6>${vo.name }</h6>
@@ -235,9 +235,7 @@
                                 <div class="add-text">
                                     <div class="yummy-table">
                                         <div class="yummy-table-cell">
-                                            <h2>Cooking Book</h2>
-                                            <p>Buy Book Online Now!</p>
-                                            <a href="#" class="add-btn">Buy Now</a>
+                                            <embed src="http://youtube.com/embed/${key }" style="width:100%"></embed>
                                         </div>
                                     </div>
                                 </div>
@@ -251,11 +249,18 @@
                             </div>
                             
                             <div class="newsletter-form">
-               
-                                    <input type="text" name="newsletter-email" id="nd" placeholder="검색어 입력">
-                                    <button type=button><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
-                               
+                                  <form action="../main/main.do">
+                                    <input type="text" name="fd" id="nd" placeholder="검색어 입력">
+                                    <button type=submit><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                                  </form>  
                             </div>
+                            <div style="height: 10px"></div>
+                            <ul style="list-style-type: none">
+                             <c:forEach var="nvo" items="${nList }" varStatus="s">
+                               <li>${s.index+1 }.<a href="${nvo.link }">${nvo.title }</a></li>
+                             </c:forEach>
+                            </ul>
+                            
                         </div>
                     </div>
                 </div>
