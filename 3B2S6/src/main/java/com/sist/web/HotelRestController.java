@@ -11,6 +11,7 @@ import java.util.*;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -129,8 +130,25 @@ public class HotelRestController {
 		return sb.toString();
 	}
 	@PostMapping(value="hotel/jjim_vue.do",produces = "text/plain;charset=UTF-8")
-	public String hotel_jjim(int hno , HttpSession session){
-		
+	public String hotel_jjim(int hno, HttpSession session){
+		String id=(String)session.getAttribute("userId");
+		Map map = new HashMap();
+		map.put("hno", hno);
+		map.put("id", id);
+		hService.hotelJjimInsert(map);
+		map = new HashMap();
+		hService.hotelJjimincrement(hno);
+		return "";
+	}
+	@PostMapping(value="hotel/del_jjim_vue.do",produces = "text/plain;charset=UTF-8")
+	public String del_hotel_jjim(int hno , HttpSession session){
+		String id=(String)session.getAttribute("userId");
+		Map map = new HashMap();
+		map.put("hno", hno);
+		map.put("id", id);
+		hService.hotelJjimDelete(map);
+		map = new HashMap();
+		hService.hotelJjimDecrement(hno);
 		return "";
 	}
 }

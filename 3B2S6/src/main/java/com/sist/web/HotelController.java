@@ -45,14 +45,14 @@ public class HotelController {
 		Map map = new HashMap();
 		map.put("hno", hno);
 		map.put("id", id);
+		boolean bcheck=false;
 		if(id!=null) {
 			int check = hService.jjimcheck(map);
-			boolean bcheck=false;
-		if(check==1) bcheck=true;
-		else if(check==0) bcheck=false;
-		System.out.println(check);
-		model.addAttribute("check", bcheck);
+			if(check==1) bcheck=true;
+			else if(check==0) bcheck=false;
+			System.out.println(check);
 		}
+		model.addAttribute("check", bcheck);
 		System.out.println(id);
 		System.out.println(hno);
 		

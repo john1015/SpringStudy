@@ -44,11 +44,6 @@
                            </div>
                            </div>
                             
-                           <div class="post-heading">
-                              <div class="full">
-                                 <a class="btn" href="#">더보기</a>
-                              </div>
-                           </div>
                      </div>
                   </div>
                   

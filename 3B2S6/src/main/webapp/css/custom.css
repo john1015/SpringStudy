@@ -115,6 +115,7 @@
      height: 50px;
      border-radius: 5px;
 }
+
  .btn.btn-primary.btn-lg:hover,.btn.btn-primary.btn-lg:focus {
      background:#d8302f;
 }
@@ -517,7 +518,7 @@
  .matchs-vs {
      float: left;
      width: 100%;
-     background: #006633;
+     background: #216d19;
      color: #fff;
      min-height: 220px;
      padding: 90px 0;
@@ -527,7 +528,7 @@
  .matchs-info {
      float: left;
      width: 100%;
-     background: #ffcb05;
+     background: #081727;
 }
  .about-us {
      float: left;
@@ -1084,8 +1085,8 @@
      max-width: 100%;
 }
  p {
-     font-size: 15px;
-     text-align: center;
+     font-size: 18px;
+     
      color: #333;
      line-height: 28px;
 }

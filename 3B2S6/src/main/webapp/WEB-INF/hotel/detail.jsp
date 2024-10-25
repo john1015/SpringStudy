@@ -26,17 +26,14 @@ li{
 	float:left;
 }
 .children{
-	margin-left: 100px;
+	 margin-left: 100px; 
 }
 
 </style>
 </head>
 <body>
    <section id="top">
-   <div class="inner-page-banner">
-            <div class="container">
-            </div>
-         </div>
+   
          <div class="inner-information-text">
             <div class="container">
                <h3>Contact</h3>
@@ -75,7 +72,7 @@ li{
 	                        </div>
                         
                         	<div width="20px"></div>
-	                           <ul class="kode-form-list detaildata" style="padding:15px;">
+	                           <ul class="kode-form-list detaildata text-left" style="padding:15px;">
 	                              <li>
 	                                 <p><strong>■&nbsp;주소 : ${vo.address }</strong></p>
 	                              </li>
@@ -83,7 +80,7 @@ li{
 	                                 <p><strong>■&nbsp;기본 정보</strong> </p>
 	                              </li>
 	                              <li>
-	                                 <p><strong>1.&nbsp;체크인(Check-in):&nbsp;/&nbsp;${vo.checkin }&nbsp;&nbsp;체크아웃(Check-out):&nbsp;&nbsp;${vo.checkout }</p>
+	                                 <p><strong>1.&nbsp;체크인(Check-in):&nbsp;&nbsp;${vo.checkin }&nbsp;&nbsp;체크아웃(Check-out):&nbsp;&nbsp;${vo.checkout }</p>
 	                                 <p><strong>2.&nbsp;와이파이 무료 이용</strong> </p>
 	                                 <p><strong>3.&nbsp;애완동물 동반 불가능</strong> </p>
 	                                 <p><strong>4.&nbsp;차/커피 메이커</strong> </p>
@@ -99,16 +96,17 @@ li{
 	                           </ul>
                         </div>
                         <div class="btnloc">
-                              <button class="btn btn-sm btn-primary">좋아요</button>
-                              <c:if test="${sessionScope.userId!=null }">
-                              	<c:if test="${check==true }">
-                              		<button class="btn btn-sm btn-default" style ="background-color:gray;"@click="jjim()">찜하기</button>
-     							</c:if>
-                              	<c:if test="${check==false }">
-                              		<button class="btn btn-sm btn-primary" @click="jjim()">찜하기</button>
-								</c:if>
-                              <a class="btn" href="../hotel/reserve.do?hno=${hno }">예약하기</a>
-                            </c:if>
+                              <a  class="btn btn-sm btn-primary" href="../hotel/list.do">목록</a>
+                              <c:if test="${sessionScope.userId != null}">
+							    <button class="btn btn-sm" 
+							            v-bind:class="isJjim ? 'btn-default' : 'btn-aaa'"
+							            v-bind:style="isJjim ? 'background-color:gray;' : 'background-color:#003366;'"
+							            @click="isJjim ? deljjim() : jjim()">
+							        {{ isJjim ? '찜삭제' : '찜하기' }}
+							    </button>
+							    <a class="btn" href="../hotel/reserve.do?hno=${hno}">예약하기</a>
+							</c:if>
+
                         </div>
                      <table class="table">
                         <tr>
@@ -155,32 +153,28 @@ li{
                               } 
                           });  
                             </script>
-                            
                   </div>
                  
-                 
                  <div id="replyApp" class="col-md-12">
-                 
                             <div class="comment_area section_padding_50 clearfix">
                                 <h4 class="mb-30">댓글</h4>
-
                                 <ol>
                                     <!-- Single Comment Area -->
                                     <li class="single_comment_area text-left" v-for="vo in reply_list" style="background-color: #f0f0f0; padding: 10px; margin-bottom: 10px;">
                                         <div class="comment-wrapper d-flex" v-if="vo.group_tab===0">
                                             <!-- Comment Meta -->
                                             <div class="comment-author">
-                                                <img :src="vo.sex==='남자'?'../images/img-01_002.jpg':'../images/img-01_004.jpg'" style="width:100px;height:100px;">
+                                                
+                                                <img :src="vo.sex==='남자'?'../images/man.png':'../images/woman.png'" style="width:100px;height:100px;">
                                             </div>
                                             <!-- Comment Content -->
                                             <div class="comment-content">
                                                 <span class="comment-date text-muted">{{vo.dbday}}</span>
                                                 <h5>{{vo.name}}</h5>
                                                 <p class="text-left">{{vo.msg}}</p>
-                                                <button v-if="sessionId===vo.id" class="btn-xs btn-danger update" style="margin-left: 2px" @click="replyUpdateForm(vo.cno)" :id="'u'+vo.cno">Update</button>
-                                                <button v-if="sessionId===vo.id" class="btn-xs btn-info" style="margin-left: 2px" @click="replyDelete(vo.cno)">Delete</button>
-                                                <button class="active insert" v-if="sessionId!=''" style="margin-left: 2px"  @click="replyForm(vo.cno)" :id="'i'+vo.cno">Reply</button>
-                                                <button v-if="sessionId!==vo.id && sessionId!==''" style="margin-left: 2px">Like</button>
+                                                <button v-if="sessionId===vo.id" class="btn-xs btn-danger update" style="margin-left: 2px" @click="replyUpdateForm(vo.cno)" :id="'u'+vo.cno">댓글수정</button>
+                                                <button v-if="sessionId===vo.id" class="btn-xs btn-info" style="margin-left: 2px" @click="replyDelete(vo.cno)">삭제</button>
+                                                <button class="active insert btn-xs btn-warning" v-if="sessionId!=''" style="margin-left: 2px"  @click="replyForm(vo.cno)" :id="'i'+vo.cno">답글</button>
                                                 <table class="table ins" style="display: none" :id="'in'+vo.cno">
 			                                     <tr>
 			                                      <td>
@@ -201,32 +195,30 @@ li{
 			                                       </td>
 			                                    </tr>
 			                                   </table>
-			                               
                                             </div>
-                                 
                                         </div>
                                         
-                                        <ol class="children" v-if="vo.group_tab===1">
+                                        <ol  v-if="vo.group_tab===1">
                                             <li class="single_comment_area text-left" >
                                                 <div class="comment-wrapper d-flex">
                                                     <!-- Comment Meta -->
                                                     
                                                     <div class="comment-author">
-                                                        <img :src="vo.sex==='남자'?'../images/img-01_002.jpg':'../images/img-01_004.jpg'" style="width:100px;height:100px;">
+                                                    <img src="../images/reply.png" style="width:100px;height:100px;">
+                                                        <img :src="vo.sex==='남자'?'../images/man.png':'../images/woman.png'" style="width:100px;height:100px;">
                                                     </div>
                                                     <!-- Comment Content -->
-                                                    <div class="comment-content">
+                                                    <div class="comment-content children">
                                                         <span class="comment-date text-muted">{{vo.dbday}}</span>
                                                         <h5>{{vo.name}}</h5>
                                                         <p class="text-left">{{vo.msg}}</p>
-                                                        <button v-if="sessionId===vo.id" class="btn-xs btn-danger" style="margin-left: 2px" @click="replyUpdateForm(vo.cno)" :id="'u'+vo.cno">Update</button>
-                                                        <button v-if="sessionId===vo.id" class="btn-xs btn-info" style="margin-left: 2px" @click="replyDelete(vo.cno)">Delete</button>
-                                                        <button v-if="sessionId!==vo.id && sessionId!==''" style="margin-left: 2px">Like</button>
+                                                        <button v-if="sessionId===vo.id" class="btn-xs btn-danger" style="margin-left: 2px" @click="replyUpdateForm(vo.cno)" :id="'u'+vo.cno">수정</button>
+                                                        <button v-if="sessionId===vo.id" class="btn-xs btn-info" style="margin-left: 2px" @click="replyDelete(vo.cno)">삭제</button>
 		                                               <table class="table ups" style="display:none " :id="'up'+vo.cno">
 					                                     <tr>
 					                                      <td>
 					                                       <textarea rows="4" cols="45" style="float: left" :id="'umsg'+vo.cno" >{{vo.msg}}</textarea>
-					                                       <input type=button value="수정" style="float: left;background-color: blue;color: white;width: 80px;height:94px"
+					                                       <input type=button value="수정" style="float: left;background-color: #003366;color: white;width: 120px;height:94px"
 					                                         @click="replyUpdate(vo.cno)"
 					                                       >
 					                                       </td>
@@ -242,8 +234,6 @@ li{
                             </div>
                             <!--  페이지  -->
                             
-                            
-                            
                              <!-- Leave A Comment 문제 X -->
                             <c:if test="${sessionScope.userId!=null }">
 	                            <div class="leave-comment-area section_padding_50 clearfix">
@@ -251,35 +241,72 @@ li{
 	                                   <table class="table">
 	                                    <tr>
 	                                      <td>
-	                                       <textarea rows="4" cols="70" style="float: left" ref="msg" v-model="msg"></textarea>
-	                                       <input type=button value="댓글" style="float: left;background-color: blue;color: white;width: 80px;height:94px"
+	                                       <textarea rows="4" cols="102"  style="float: left" ref="msg" v-model="msg" ></textarea>
+	                                       <input type=button value="댓글" style="float: left;background-color: #003366;color: white;width: 120px;height:92px"
 	                                         @click="replyInsert()"
 	                                       >
-	                                       
 	                                      </td>
 	                                    </tr>
 	                                   </table>
 	                                </div>
 	                            </div>
                             </c:if>
-                            
-                            
-                            
                           </div>
-                 
-                 
-                
-                 
-                 
                </div>
-               
-               
-               
             </div>
          </div>
          </div>
       </section>
       <script>
+     let hoteldetail = Vue.createApp({
+    	 data() {
+             return {
+                 hno: ${hno},
+                 rno:${hno},
+                 reply_list:[],
+                 curpage:1,
+                 totalpage:0,
+                 endPage:0,
+                 startPage:0,
+                 type:1,
+                 sessionId:'${sessionId}',
+                 msg:'',
+                 isReply:false,
+                 isJjim :${check},
+                 upReply:false
+             }
+         },
+         methods: {
+             jjim() {
+                 console.log("찜하기 클릭", this.hno); 
+                 axios.post('../hotel/jjim_vue.do',null,{
+       				params:{
+       					hno:this.hno
+       				}
+       			}).then(response=>{
+    	   				 console.log("yes")
+    	   			this.isJjim = true;
+    			   }).catch(error=>{
+    				     console.log(error.response)
+    			   }) 
+             },
+             deljjim() {
+                 console.log("찜 삭제 클릭", this.hno);
+                 axios.post('../hotel/del_jjim_vue.do',null,{
+      				params:{
+      					hno:this.hno
+      				}
+      			}).then(response=>{
+   	   				 console.log("yes")
+   	   				this.isJjim = false;
+   			   }).catch(error=>{
+   				     console.log(error.response)
+   			   }) 
+             }
+            
+         }
+     }).mount('.btnloc')
+     
      let replyApp=Vue.createApp({
     	 data(){
     		 return {
@@ -300,9 +327,6 @@ li{
     		 this.dataRecv()
     	 },
     	 methods:{
-    		 jjim(){
-    			 axios.post('../hotel/jjim_vue.do')
-    		 },
     		 replyUpdate(cno){
     			 let msg=$('#umsg'+cno).val()
     			 if(msg.trim()==="")

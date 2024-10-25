@@ -38,9 +38,9 @@ public interface HotelMapper {
 	public HotelVO hotelReserveData(int hno);
 	
 	/////////////////// 찜 ////////////////////////
-	@Update("update hotel set"
-	+"jjimcount = jjimcount+1"
-	+"where hno=#{hno}")
+	@Update("update hotel set "
+	+" jjimcount = jjimcount+1"
+	+" where hno=#{hno}")
 	public void hotelJjimincrement(int hno);
 	@Insert("INSERT INTO jjim (jno, hno, id) VALUES (jj_jno_seq.nextval, #{hno}, #{id})")
 	public void hotelJjimInsert(Map map);
